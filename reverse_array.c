@@ -1,7 +1,7 @@
 /*
- * 未命名.c
+ * reverse_array.c
  *
- * Copyright 2013 Gerry <gerry@gerry-ubuntu-laptop>
+ * Copyright 2013 Gerry <gerry@gerry-work-tcl>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,20 +21,43 @@
  *
  */
 
-
 #include <stdio.h>
+
+void xor_swap(int *x, int *y) {
+	*y = *x ^ *y;
+	*x = *x ^ *y;
+	*y = *x ^ *y;
+}
+
+void reverse_array(int *a, int cnt) {
+	int first, last;
+
+	for (first = 0, last = cnt - 1; first < last; first++, last--) {
+		xor_swap(&a[first], &a[last]);
+	}
+}
+
+void print_array(int *a, int cnt) {
+	int i;
+
+	for (i = 0; i < cnt; i++) {
+		printf(" %d", a[i]);
+	}
+	printf("\n");
+}
 
 int main(int argc, char **argv)
 {
-	int i = 0xABCDEF12;
-	//unsigned i = 0xABCDEF12;
-	int si = 0x80000000;
+	int a[] = {-1, -2, -3, 4, 5, 6, 7};
+	int cnt = sizeof(a) / sizeof(int);
 
-	printf("sizeof(int)=%d, sizeof(long)=%d\n", sizeof(int), sizeof(long));
-	printf("%.8X >> 32 : %.8X\n", i, i >> 32);
-	printf("%.8X >> 36 : %.8X\n", i, i >> 36);
-	printf("%.8X >> 40 : %.8X\n", i, i >> 40);
+	printf("array:");
+	print_array(a, cnt);
 
-	printf("si=%d, %u\n", si, si);
+	reverse_array(a, cnt);
+
+	printf("reverse:");
+	print_array(a, cnt);
+
 	return 0;
 }

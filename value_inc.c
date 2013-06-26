@@ -1,7 +1,7 @@
 /*
- * 未命名.c
+ * value_inc.c
  *
- * Copyright 2013 Gerry <gerry@gerry-ubuntu-laptop>
+ * Copyright 2013 Gerry <gerry@gerry-work-tcl>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,20 +21,23 @@
  *
  */
 
-
 #include <stdio.h>
+
+int value_inc(int *i)
+{
+	// *i++	// wrong! pointer increment
+	// (*i)++; // ok, increment
+	++*i;	// works well
+
+	return (*i);
+}
 
 int main(int argc, char **argv)
 {
-	int i = 0xABCDEF12;
-	//unsigned i = 0xABCDEF12;
-	int si = 0x80000000;
+	int i = 0;
 
-	printf("sizeof(int)=%d, sizeof(long)=%d\n", sizeof(int), sizeof(long));
-	printf("%.8X >> 32 : %.8X\n", i, i >> 32);
-	printf("%.8X >> 36 : %.8X\n", i, i >> 36);
-	printf("%.8X >> 40 : %.8X\n", i, i >> 40);
+	value_inc(&i);
+	printf("i=%d\n", i);
 
-	printf("si=%d, %u\n", si, si);
 	return 0;
 }
